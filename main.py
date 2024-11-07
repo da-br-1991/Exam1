@@ -314,6 +314,10 @@ cap_util_multi_facility_four = round((cap_util_multi_facility_four / int(facilit
 for customer, order in pkl_outstanding_multi_order_list:
     missing_multi_order += order
 
+#transprot cost calculation:
+
+
+
 #Terminal output:
 
 print("\nExercise 2:","\n")
