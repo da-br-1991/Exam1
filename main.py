@@ -1,7 +1,7 @@
 import csv
 import pickle
 
-#Part 1: Input into list
+#exercise 1: Reading Inputs
 def csv_import_comma(path):
     data = []
 
@@ -68,7 +68,7 @@ for from_to, distance in distances_list:
 
 
 
-#Variablen für Aufgabe 2
+#variables for exercise 2
 capacity_one = int(facilities_list[0][1])
 capacity_two = int(facilities_list[1][1])
 capacity_three = int(facilities_list[2][1])
@@ -83,7 +83,7 @@ order_list_facility_three = []
 order_list_facility_four = []
 outstanding_order_list = []
 
-#Variablen für Aufgabe 3
+#variables for exercise 3
 multi_capacity_one = int(facilities_list[0][1])
 multi_capacity_two = int(facilities_list[1][1])
 multi_capacity_three = int(facilities_list[2][1])
@@ -95,7 +95,7 @@ multi_order_list_facility_four = []
 multi_outstanding_order_list = []
 multi_customer_distance_list = customer_distance_list
 
-#Exercise 2:
+#exercise 2:
 
 for from_to, distance in distances_list:
     parts = from_to.split("->")
@@ -159,9 +159,11 @@ while True:
                 else:
                     continue
 
-#pickle Datei befüllen
+#create pickle file for exercise 2
+
 with open("data/part2.pkl", "wb") as f:
     pickle.dump((order_list_facility_one, order_list_facility_two, order_list_facility_three, order_list_facility_four, outstanding_order_list), f)
+
 '''
 #pickledatei auslesen und in die Variable loaded Data schreiben
 with open("data/part2.pkl", "rb") as f:
@@ -176,7 +178,7 @@ print(four)
 print(five)
 '''
 
-#Exercsise 3:
+#exercise 3:
 
 while True:
     if len(multi_order_amount_list) == 0:
@@ -191,11 +193,11 @@ while True:
             max_order_amount = int(order)
             max_customer = customer
 
-    # Erstellen neuer Liste, um den Max Customer zu eleminieren für die zukünftigen Loops der ersten Schleife
+    # Create filtered list without the current Max_Customer for the next run of the While loop
     filtered_list = [entry for entry in multi_order_amount_list if entry[0] != max_customer]
     multi_order_amount_list = filtered_list
 
-    # Liste für den Kapazitätsabgleich pro Standort. Notwendig aufgrund der Zuordnung zu einem oder mehreren Standorten mit Abgleich der vorhandene Kapazität und Berücksichtigung der nähsten Distanz
+    # Create a sorted and filtered distance list by Max_Customer and lowest distance first
     filtered_list_two = [entry for entry in multi_customer_distance_list if entry[0] == max_customer]
     sorted_max_customer_distance_list = sorted(filtered_list_two, key=lambda x: x[2])
 
@@ -207,7 +209,7 @@ while True:
                 if max_order_amount <= multi_capacity_one:
                     multi_capacity_one = multi_capacity_one - max_order_amount
                     multi_order_list_facility_one.append([max_customer, max_order_amount])
-                    max_order_amount = max_order_amount - max_order_amount #max_order_amount = 0 auch möglich
+                    max_order_amount = max_order_amount - max_order_amount
                 if max_order_amount > multi_capacity_one:
                     if multi_capacity_one == 0:
                         continue
@@ -258,11 +260,13 @@ while True:
             else:
                 multi_outstanding_order_list.append([max_customer, max_order_amount])
 
-#pickle Datei befüllen
+#create pickle file for exercise 3
+
 with open("data/part3.pkl", "wb") as f:
     pickle.dump((multi_order_list_facility_one, multi_order_list_facility_two, multi_order_list_facility_three, multi_order_list_facility_four, multi_outstanding_order_list), f)
 
-#vorläufige Terminalausgabe:
+#Terminal output:
+
 print("\nAufgabe 2:","\n")
 print("Order list Facility 1:", order_list_facility_one)
 print("Order list Facility 2:", order_list_facility_two)
@@ -283,7 +287,7 @@ print("Outstanding Orders:",multi_outstanding_order_list,"\n")
 print("Open capacities Facility 1:",multi_capacity_one)
 print("Open capacities Facility 2:",multi_capacity_two)
 print("Open capacities Facility 3:",multi_capacity_three)
+print("Open capacities Facility 4:",multi_capacity_four,"\n")
 
-print("Open capacities Facility 4:",multi_capacity_four)
 
 
