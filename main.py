@@ -95,13 +95,6 @@ multi_customer_distance_list = customer_distance_list
 
 #exercise 2:
 
-for from_to, distance in distances_list:
-    parts = from_to.split("->")
-    order_person = parts[0].strip()
-    location = parts[1].strip()
-    distance_to_location = float(distance)
-    customer_distance_list.append([order_person, location, distance_to_location])
-
 while True:
     if len(order_amount_list) == 0:
         break
@@ -267,12 +260,14 @@ cap_util_facility_two = 0
 cap_util_facility_three = 0
 cap_util_facility_four = 0
 missing_order = 0
+transport_cost = 0
 
 cap_util_multi_facility_one = 0
 cap_util_multi_facility_two = 0
 cap_util_multi_facility_three = 0
 cap_util_multi_facility_four = 0
 missing_multi_order = 0
+transport_cost_multi = 0
 
 #variant 1: single
 for customer, order in pkl_facility_one_order_list:
@@ -314,12 +309,49 @@ cap_util_multi_facility_four = round((cap_util_multi_facility_four / int(facilit
 for customer, order in pkl_outstanding_multi_order_list:
     missing_multi_order += order
 
+transport_cost_single_facility_one = 0
+transport_cost_single_facility_two = 0
+transport_cost_single_facility_three = 0
+transport_cost_single_facility_four = 0
+
 #transprot cost calculation:
+for customer, facility, distance in customer_distance_list:
+    for customer_2, order in pkl_facility_one_order_list:
+        if facility == "Werk 1" and customer == customer_2:
+            transport_cost_single_facility_one += (distance * order * 2)
+    for customer_2, order in pkl_facility_two_order_list:
+        if facility == "Werk 1" and customer == customer_2:
+            transport_cost_single_facility_two += (distance * order * 2)
+    for customer_2, order in pkl_facility_three_order_list:
+        if facility == "Werk 1" and customer == customer_2:
+            transport_cost_single_facility_three += (distance * order * 2)
+    for customer_2, order in pkl_facility_four_order_list:
+        if facility == "Werk 1" and customer == customer_2:
+            transport_cost_single_facility_four += (distance * order * 2)
+transport_cost = transport_cost_single_facility_one + transport_cost_single_facility_two + transport_cost_single_facility_three + transport_cost_single_facility_four
 
+transport_cost_multi_facility_one = 0
+transport_cost_multi_facility_two = 0
+transport_cost_multi_facility_three = 0
+transport_cost_multi_facility_four = 0
 
+for customer, facility, distance in customer_distance_list:
+    for customer_2, order in pkl_facility_one_multi_order_list:
+        if facility == "Werk 1" and customer == customer_2:
+            transport_cost_multi_facility_one += (distance * order * 2)
+    for customer_2, order in pkl_facility_two_multi_order_list:
+        if facility == "Werk 1" and customer == customer_2:
+            transport_cost_multi_facility_two += (distance * order * 2)
+    for customer_2, order in pkl_facility_three_multi_order_list:
+        if facility == "Werk 1" and customer == customer_2:
+            transport_cost_multi_facility_three += (distance * order * 2)
+    for customer_2, order in pkl_facility_four_multi_order_list:
+        if facility == "Werk 1" and customer == customer_2:
+            transport_cost_multi_facility_four += (distance * order * 2)
+transport_cost_multi = transport_cost_multi_facility_one + transport_cost_multi_facility_two + transport_cost_multi_facility_three + transport_cost_multi_facility_four
 
 #Terminal output:
-
+'''
 print("\nExercise 2:","\n")
 print("Order list facility 1:", order_list_facility_one)
 print("Order list facility 2:", order_list_facility_two)
@@ -341,17 +373,17 @@ print("Open capacities facility 1:",multi_capacity_one)
 print("Open capacities facility 2:",multi_capacity_two)
 print("Open capacities facility 3:",multi_capacity_three)
 print("Open capacities facility 4:",multi_capacity_four,"\n")
-
+'''
 print("Exercise 4:\n")
 print("Variant 1 without splitting the order quantity across several locations:")
-print("Transport costs:")
+print("Transport costs:", transport_cost)
 print("Capacity utilisation of facility 1:", cap_util_facility_one, "%")
 print("Capacity utilisation of facility 2:", cap_util_facility_two, "%")
 print("Capacity utilisation of facility 3:", cap_util_facility_three, "%")
 print("Capacity utilisation of facility 4:", cap_util_facility_four, "%")
 print("Missing order quantities:", missing_order)
 print("\nVariant 2 with splitting of the order quantity to several locations:")
-print("Transport costs:")
+print("Transport costs:", transport_cost_multi)
 print("Capacity utilisation of facility 1:", cap_util_multi_facility_one, "%")
 print("Capacity utilisation of facility 2:", cap_util_multi_facility_two, "%")
 print("Capacity utilisation of facility 3:", cap_util_multi_facility_three, "%")
