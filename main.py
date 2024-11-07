@@ -164,20 +164,6 @@ while True:
 with open("data/part2.pkl", "wb") as f:
     pickle.dump((order_list_facility_one, order_list_facility_two, order_list_facility_three, order_list_facility_four, outstanding_order_list), f)
 
-'''
-#pickledatei auslesen und in die Variable loaded Data schreiben
-with open("data/part2.pkl", "rb") as f:
-    loaded_data = pickle.load(f)
-
-#Pickle Datei ausgeben
-one, two, three, four, five = loaded_data
-print(one)
-print(two)
-print(three)
-print(four)
-print(five)
-'''
-
 #exercise 3:
 
 while True:
@@ -264,6 +250,21 @@ while True:
 
 with open("data/part3.pkl", "wb") as f:
     pickle.dump((multi_order_list_facility_one, multi_order_list_facility_two, multi_order_list_facility_three, multi_order_list_facility_four, multi_outstanding_order_list), f)
+
+
+#exercise 4:
+
+#loading pickle data
+with open("data/part2.pkl", "rb") as f:
+    loaded_data = pickle.load(f)
+
+pkl_facility_one_order_list, pkl_facility_two_order_list, pkl_facility_three_order_list, pkl_facility_four_order_list, pkl_outstanding_order_list = loaded_data
+
+with open("data/part3.pkl", "rb") as f:
+    loaded_data2 = pickle.load(f)
+
+pkl_facility_one_multi_order_list, pkl_facility_two_multi_order_list, pkl_facility_three_multi_order_list, pkl_facility_four_multi_order_list, pkl_outstanding_multi_order_list = loaded_data2
+
 
 #Terminal output:
 
