@@ -279,6 +279,7 @@ print("Outstanding Orders:",multi_outstanding_order_list,"\n")
 print("Open capacities Facility 1:",multi_capacity_one)
 print("Open capacities Facility 2:",multi_capacity_two)
 print("Open capacities Facility 3:",multi_capacity_three)
+
 print("Open capacities Facility 4:",multi_capacity_four)
 
 
