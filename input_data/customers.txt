@@ -1,0 +1,16 @@
+customer, order
+Schmidtmann, 42
+Krausefeld,35
+Weberstein,28
+Lindenbörg,17
+Müllerhof,49
+Schneiderling,22
+Bachhofer,39
+Grünwald,45
+Hoffmanns,32
+Neuberg,18
+Frankenberg,27
+Eisengard33
+Rosenthal,41
+Kirschner,24
+Altendorf,30

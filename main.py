@@ -1,0 +1,284 @@
+import csv
+import pickle
+
+#Part 1: Input into list
+def csv_import_comma(path):
+    data = []
+
+    with open(path, 'r', encoding='utf8') as csv_data:
+        next(csv_data)
+        reader = csv.reader(csv_data, delimiter=',')
+        data_before_split = list(reader)
+        for i in data_before_split:
+            temp_list = []
+            for j in i:
+                new_var = j.strip()
+                temp_list.append(new_var)
+            data.append(temp_list)
+
+        return data
+
+def csv_import_semicolon(path):
+    data = []
+
+    with open(path, 'r', encoding='utf8') as csv_data:
+        next(csv_data)
+        reader = csv.reader(csv_data, delimiter=';')
+        data_before_split = list(reader)
+        for i in data_before_split:
+            temp_list = []
+            for j in i:
+                new_var = j.strip()
+                temp_list.append(new_var)
+            data.append(temp_list)
+
+        return data
+
+def txt_import(path):
+    data = []
+
+    with open(path, encoding='utf8') as file:
+        next(file)
+        for line in file:
+            line = line.strip()
+
+            if ',' in line:
+                customer, order = line.split(',')
+                data.append([customer.strip(), order.strip()])
+            else:
+                customer = line[:-2].strip()
+                order = line[-2:]
+                data.append([customer , order])
+
+    return data
+
+coordinates_list= csv_import_comma('input_data/coordinates.csv')
+distances_list = csv_import_comma('input_data/distance.csv')
+facilities_list = csv_import_semicolon('input_data/facilities.csv')
+customers_list = txt_import('input_data/customers.txt')
+
+customer_distance_list =[]
+
+for from_to, distance in distances_list:
+    parts = from_to.split("->")
+    order_person = parts[0].strip()
+    location = parts[1].strip()
+    distance_to_location = float(distance)
+    customer_distance_list.append([order_person, location, distance_to_location])
+
+
+
+#Variablen für Aufgabe 2
+capacity_one = int(facilities_list[0][1])
+capacity_two = int(facilities_list[1][1])
+capacity_three = int(facilities_list[2][1])
+capacity_four = int(facilities_list[3][1])
+
+order_amount_list = customers_list
+multi_order_amount_list = customers_list
+
+order_list_facility_one = []
+order_list_facility_two = []
+order_list_facility_three = []
+order_list_facility_four = []
+outstanding_order_list = []
+
+#Variablen für Aufgabe 3
+multi_capacity_one = int(facilities_list[0][1])
+multi_capacity_two = int(facilities_list[1][1])
+multi_capacity_three = int(facilities_list[2][1])
+multi_capacity_four = int(facilities_list[3][1])
+multi_order_list_facility_one = []
+multi_order_list_facility_two = []
+multi_order_list_facility_three = []
+multi_order_list_facility_four = []
+multi_outstanding_order_list = []
+multi_customer_distance_list = customer_distance_list
+
+#Exercise 2:
+
+for from_to, distance in distances_list:
+    parts = from_to.split("->")
+    order_person = parts[0].strip()
+    location = parts[1].strip()
+    distance_to_location = float(distance)
+    customer_distance_list.append([order_person, location, distance_to_location])
+
+while True:
+    if len(order_amount_list) == 0:
+        break
+    max_order_amount = 0
+    max_customer = None
+    shortest_distance = float('inf')
+    closest_location = None
+
+    for customer, order in order_amount_list:
+        if int(order) > max_order_amount:
+            max_order_amount = int(order)
+            max_customer = customer
+
+    filtered_list = [entry for entry in order_amount_list if entry[0] != max_customer]
+    order_amount_list = filtered_list
+
+    filtered_list_two = [entry for entry in multi_customer_distance_list if entry[0] == max_customer]
+    sorted_max_customer_distance_list = sorted(filtered_list_two, key=lambda x: x[2])
+
+    for order_person, location, distance in sorted_max_customer_distance_list:
+        if order_person == max_customer:
+            if max_order_amount is None:
+                break
+            elif max_order_amount > capacity_one and max_order_amount > capacity_two and max_order_amount > capacity_three and max_order_amount > capacity_four:
+                outstanding_order_list.append([max_customer, max_order_amount])
+                break
+            if location == "Werk 1":
+                if max_order_amount <= capacity_one:
+                    capacity_one = capacity_one - max_order_amount
+                    order_list_facility_one.append([max_customer, max_order_amount])
+                    max_order_amount = None
+                else:
+                    continue
+            elif location == "Werk 2":
+                if max_order_amount <= capacity_two:
+                    capacity_two = capacity_two - max_order_amount
+                    order_list_facility_two.append([max_customer, max_order_amount])
+                    max_order_amount = None
+                else:
+                    continue
+            elif location == "Werk 3":
+                if max_order_amount <= capacity_three:
+                    capacity_three = capacity_three - max_order_amount
+                    order_list_facility_three.append([max_customer, max_order_amount])
+                    max_order_amount = None
+                else:
+                    continue
+            elif location == "Werk 4":
+                if max_order_amount <= capacity_four:
+                    capacity_four = capacity_four - max_order_amount
+                    order_list_facility_four.append([max_customer, max_order_amount])
+                    max_order_amount = None
+                else:
+                    continue
+
+#pickle Datei befüllen
+with open("data/part2.txt", "wb") as f:
+    pickle.dump((order_list_facility_one, order_list_facility_two, order_list_facility_three, order_list_facility_four, outstanding_order_list), f)
+
+#pickledatei auslesen und in die Variable loaded Data schreiben
+with open("data/part2.txt", "rb") as f:
+    loaded_data = pickle.load(f)
+'''
+#Pickle Datei ausgeben
+one, two, three, four, five = loaded_data
+print(one)
+print(two)
+print(three)
+print(four)
+print(five)
+'''
+
+#Exercsise 3:
+
+while True:
+    if len(multi_order_amount_list) == 0:
+        break
+    max_order_amount = 0
+    max_customer = None
+    shortest_distance = float('inf')
+    closest_location = None
+
+    for customer, order in multi_order_amount_list:
+        if int(order) > max_order_amount:
+            max_order_amount = int(order)
+            max_customer = customer
+
+    # Erstellen neuer Liste, um den Max Customer zu eleminieren für die zukünftigen Loops der ersten Schleife
+    filtered_list = [entry for entry in multi_order_amount_list if entry[0] != max_customer]
+    multi_order_amount_list = filtered_list
+
+    # Liste für den Kapazitätsabgleich pro Standort. Notwendig aufgrund der Zuordnung zu einem oder mehreren Standorten mit Abgleich der vorhandene Kapazität und Berücksichtigung der nähsten Distanz
+    filtered_list_two = [entry for entry in multi_customer_distance_list if entry[0] == max_customer]
+    sorted_max_customer_distance_list = sorted(filtered_list_two, key=lambda x: x[2])
+
+    for order_person, location, distance in sorted_max_customer_distance_list:
+        if order_person == max_customer:
+            if max_order_amount == 0:
+                break
+            elif location == "Werk 1":
+                if max_order_amount <= multi_capacity_one:
+                    multi_capacity_one = multi_capacity_one - max_order_amount
+                    multi_order_list_facility_one.append([max_customer, max_order_amount])
+                    max_order_amount = max_order_amount - max_order_amount #max_order_amount = 0 auch möglich
+                if max_order_amount > multi_capacity_one:
+                    if multi_capacity_one == 0:
+                        continue
+                    else:
+                        split_order  = multi_capacity_one
+                        multi_capacity_one = multi_capacity_one - split_order
+                        multi_order_list_facility_one.append([max_customer, split_order])
+                        max_order_amount = max_order_amount - split_order
+            elif location == "Werk 2":
+                if max_order_amount <= multi_capacity_two:
+                    multi_capacity_two = multi_capacity_two - max_order_amount
+                    multi_order_list_facility_two.append([max_customer, max_order_amount])
+                    max_order_amount = max_order_amount - max_order_amount
+                if max_order_amount > multi_capacity_two:
+                    if multi_capacity_two == 0:
+                        continue
+                    else:
+                        split_order = multi_capacity_two
+                        multi_capacity_two = multi_capacity_two - split_order
+                        multi_order_list_facility_two.append([max_customer, split_order])
+                        max_order_amount = max_order_amount - split_order
+            elif location == "Werk 3":
+                if max_order_amount <= multi_capacity_three:
+                    multi_capacity_three = multi_capacity_three - max_order_amount
+                    multi_order_list_facility_three.append([max_customer, max_order_amount])
+                    max_order_amount = max_order_amount - max_order_amount
+                if max_order_amount > multi_capacity_three:
+                    if multi_capacity_three == 0:
+                        continue
+                    else:
+                        split_order = multi_capacity_three
+                        multi_capacity_three = multi_capacity_three - split_order
+                        multi_order_list_facility_three.append([max_customer, split_order])
+                        max_order_amount = max_order_amount - split_order
+            elif location == "Werk 4":
+                if max_order_amount <= multi_capacity_four:
+                    multi_capacity_four = multi_capacity_four - max_order_amount
+                    multi_order_list_facility_four.append([max_customer, max_order_amount])
+                    max_order_amount = max_order_amount - max_order_amount
+                if max_order_amount > multi_capacity_four:
+                    if multi_capacity_four == 0:
+                        continue
+                    else:
+                        split_order = multi_capacity_four
+                        multi_capacity_four = multi_capacity_four - split_order
+                        multi_order_list_facility_four.append([max_customer, split_order])
+                        max_order_amount = max_order_amount - split_order
+            else:
+                multi_outstanding_order_list.append([max_customer, max_order_amount])
+
+#vorläufige Terminalausgabe:
+print("\nAufgabe 2:","\n")
+print("Order list Facility 1:", order_list_facility_one)
+print("Order list Facility 2:", order_list_facility_two)
+print("Order list Facility 3:", order_list_facility_three)
+print("Order list Facility 4:", order_list_facility_four, "\n")
+print("Outstanding Orders:", outstanding_order_list,"\n")
+print("Open capacities Facility 1:", capacity_one)
+print("Open capacities Facility 2:", capacity_two)
+print("Open capacities Facility 3:", capacity_three)
+print("Open capacities Facility 4:", capacity_four,"\n")
+
+print("Aufgabe 3:\n")
+print("Order list Facility 1:",multi_order_list_facility_one)
+print("Order list Facility 2:",multi_order_list_facility_two)
+print("Order list Facility 3:",multi_order_list_facility_three)
+print("Order list Facility 4:",multi_order_list_facility_four,"\n")
+print("Outstanding Orders:",multi_outstanding_order_list,"\n")
+print("Open capacities Facility 1:",multi_capacity_one)
+print("Open capacities Facility 2:",multi_capacity_two)
+print("Open capacities Facility 3:",multi_capacity_three)
+print("Open capacities Facility 4:",multi_capacity_four)
+
+
