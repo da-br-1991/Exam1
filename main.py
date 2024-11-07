@@ -320,13 +320,13 @@ for customer, facility, distance in customer_distance_list:
         if facility == "Werk 1" and customer == customer_2:
             transport_cost_single_facility_one += (distance * order * 2)
     for customer_2, order in pkl_facility_two_order_list:
-        if facility == "Werk 1" and customer == customer_2:
+        if facility == "Werk 2" and customer == customer_2:
             transport_cost_single_facility_two += (distance * order * 2)
     for customer_2, order in pkl_facility_three_order_list:
-        if facility == "Werk 1" and customer == customer_2:
+        if facility == "Werk 3" and customer == customer_2:
             transport_cost_single_facility_three += (distance * order * 2)
     for customer_2, order in pkl_facility_four_order_list:
-        if facility == "Werk 1" and customer == customer_2:
+        if facility == "Werk 4" and customer == customer_2:
             transport_cost_single_facility_four += (distance * order * 2)
 transport_cost = transport_cost_single_facility_one + transport_cost_single_facility_two + transport_cost_single_facility_three + transport_cost_single_facility_four
 
@@ -340,18 +340,25 @@ for customer, facility, distance in customer_distance_list:
         if facility == "Werk 1" and customer == customer_2:
             transport_cost_multi_facility_one += (distance * order * 2)
     for customer_2, order in pkl_facility_two_multi_order_list:
-        if facility == "Werk 1" and customer == customer_2:
+        if facility == "Werk 2" and customer == customer_2:
             transport_cost_multi_facility_two += (distance * order * 2)
     for customer_2, order in pkl_facility_three_multi_order_list:
-        if facility == "Werk 1" and customer == customer_2:
+        if facility == "Werk 3" and customer == customer_2:
             transport_cost_multi_facility_three += (distance * order * 2)
     for customer_2, order in pkl_facility_four_multi_order_list:
-        if facility == "Werk 1" and customer == customer_2:
+        if facility == "Werk 4" and customer == customer_2:
             transport_cost_multi_facility_four += (distance * order * 2)
+
+print(customer_distance_list)
+print(transport_cost_single_facility_one)
+print(transport_cost_single_facility_two)
+print(transport_cost_single_facility_three)
+print(transport_cost_single_facility_four)
+
 transport_cost_multi = transport_cost_multi_facility_one + transport_cost_multi_facility_two + transport_cost_multi_facility_three + transport_cost_multi_facility_four
 
 #Terminal output:
-'''
+
 print("\nExercise 2:","\n")
 print("Order list facility 1:", order_list_facility_one)
 print("Order list facility 2:", order_list_facility_two)
@@ -373,7 +380,7 @@ print("Open capacities facility 1:",multi_capacity_one)
 print("Open capacities facility 2:",multi_capacity_two)
 print("Open capacities facility 3:",multi_capacity_three)
 print("Open capacities facility 4:",multi_capacity_four,"\n")
-'''
+
 print("Exercise 4:\n")
 print("Variant 1 without splitting the order quantity across several locations:")
 print("Transport costs:", transport_cost)
