@@ -162,11 +162,11 @@ while True:
 #pickle Datei befüllen
 with open("data/part2.pkl", "wb") as f:
     pickle.dump((order_list_facility_one, order_list_facility_two, order_list_facility_three, order_list_facility_four, outstanding_order_list), f)
-
+'''
 #pickledatei auslesen und in die Variable loaded Data schreiben
 with open("data/part2.pkl", "rb") as f:
     loaded_data = pickle.load(f)
-'''
+
 #Pickle Datei ausgeben
 one, two, three, four, five = loaded_data
 print(one)
@@ -257,6 +257,10 @@ while True:
                         max_order_amount = max_order_amount - split_order
             else:
                 multi_outstanding_order_list.append([max_customer, max_order_amount])
+
+#pickle Datei befüllen
+with open("data/part3.pkl", "wb") as f:
+    pickle.dump((multi_order_list_facility_one, multi_order_list_facility_two, multi_order_list_facility_three, multi_order_list_facility_four, multi_outstanding_order_list), f)
 
 #vorläufige Terminalausgabe:
 print("\nAufgabe 2:","\n")
