@@ -66,8 +66,6 @@ for from_to, distance in distances_list:
     distance_to_location = float(distance)
     customer_distance_list.append([order_person, location, distance_to_location])
 
-
-
 #variables for exercise 2
 capacity_one = int(facilities_list[0][1])
 capacity_two = int(facilities_list[1][1])
@@ -251,7 +249,6 @@ while True:
 with open("data/part3.pkl", "wb") as f:
     pickle.dump((multi_order_list_facility_one, multi_order_list_facility_two, multi_order_list_facility_three, multi_order_list_facility_four, multi_outstanding_order_list), f)
 
-
 #exercise 4:
 
 #loading pickle data
@@ -297,8 +294,7 @@ cap_util_facility_four = round((cap_util_facility_four / int(facilities_list[3][
 for customer, order in pkl_outstanding_order_list:
     missing_order += order
 
-
-#variant 2: multi
+#variant 2: multiple facilities
 for customer, order in pkl_facility_one_multi_order_list:
     cap_util_multi_facility_one += order
 cap_util_multi_facility_one = round((cap_util_multi_facility_one / int(facilities_list[0][1])) * 100,1)
