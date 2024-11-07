@@ -265,30 +265,95 @@ with open("data/part3.pkl", "rb") as f:
 
 pkl_facility_one_multi_order_list, pkl_facility_two_multi_order_list, pkl_facility_three_multi_order_list, pkl_facility_four_multi_order_list, pkl_outstanding_multi_order_list = loaded_data2
 
+cap_util_facility_one = 0
+cap_util_facility_two = 0
+cap_util_facility_three = 0
+cap_util_facility_four = 0
+missing_order = 0
+
+cap_util_multi_facility_one = 0
+cap_util_multi_facility_two = 0
+cap_util_multi_facility_three = 0
+cap_util_multi_facility_four = 0
+missing_multi_order = 0
+
+#variant 1: single
+for customer, order in pkl_facility_one_order_list:
+    cap_util_facility_one += order
+cap_util_facility_one = round((cap_util_facility_one / int(facilities_list[0][1])) * 100,1)
+
+for customer, order in pkl_facility_two_order_list:
+    cap_util_facility_two += order
+cap_util_facility_two = round((cap_util_facility_two / int(facilities_list[1][1])) * 100, 1)
+
+for customer, order in pkl_facility_three_order_list:
+    cap_util_facility_three += order
+cap_util_facility_three = round((cap_util_facility_three / int(facilities_list[2][1])) * 100,1)
+
+for customer, order in pkl_facility_four_order_list:
+    cap_util_facility_four += order
+cap_util_facility_four = round((cap_util_facility_four / int(facilities_list[3][1])) * 100,1)
+
+for customer, order in pkl_outstanding_order_list:
+    missing_order += order
+
+
+#variant 2: multi
+for customer, order in pkl_facility_one_multi_order_list:
+    cap_util_multi_facility_one += order
+cap_util_multi_facility_one = round((cap_util_multi_facility_one / int(facilities_list[0][1])) * 100,1)
+
+for customer, order in pkl_facility_two_multi_order_list:
+    cap_util_multi_facility_two += order
+cap_util_multi_facility_two = round((cap_util_multi_facility_two / int(facilities_list[1][1])) * 100, 1)
+
+for customer, order in pkl_facility_three_multi_order_list:
+    cap_util_multi_facility_three += order
+cap_util_multi_facility_three = round((cap_util_multi_facility_three / int(facilities_list[2][1])) * 100,1)
+
+for customer, order in pkl_facility_four_multi_order_list:
+    cap_util_multi_facility_four += order
+cap_util_multi_facility_four = round((cap_util_multi_facility_four / int(facilities_list[3][1])) * 100,1)
+
+for customer, order in pkl_outstanding_multi_order_list:
+    missing_multi_order += order
 
 #Terminal output:
 
-print("\nAufgabe 2:","\n")
-print("Order list Facility 1:", order_list_facility_one)
-print("Order list Facility 2:", order_list_facility_two)
-print("Order list Facility 3:", order_list_facility_three)
-print("Order list Facility 4:", order_list_facility_four, "\n")
-print("Outstanding Orders:", outstanding_order_list,"\n")
-print("Open capacities Facility 1:", capacity_one)
-print("Open capacities Facility 2:", capacity_two)
-print("Open capacities Facility 3:", capacity_three)
-print("Open capacities Facility 4:", capacity_four,"\n")
+print("\nExercise 2:","\n")
+print("Order list facility 1:", order_list_facility_one)
+print("Order list facility 2:", order_list_facility_two)
+print("Order list facility 3:", order_list_facility_three)
+print("Order list facility 4:", order_list_facility_four, "\n")
+print("Outstanding orders:", outstanding_order_list,"\n")
+print("Open capacities facility 1:", capacity_one)
+print("Open capacities facility 2:", capacity_two)
+print("Open capacities facility 3:", capacity_three)
+print("Open capacities facility 4:", capacity_four,"\n")
 
-print("Aufgabe 3:\n")
-print("Order list Facility 1:",multi_order_list_facility_one)
-print("Order list Facility 2:",multi_order_list_facility_two)
-print("Order list Facility 3:",multi_order_list_facility_three)
-print("Order list Facility 4:",multi_order_list_facility_four,"\n")
-print("Outstanding Orders:",multi_outstanding_order_list,"\n")
-print("Open capacities Facility 1:",multi_capacity_one)
-print("Open capacities Facility 2:",multi_capacity_two)
-print("Open capacities Facility 3:",multi_capacity_three)
-print("Open capacities Facility 4:",multi_capacity_four,"\n")
+print("Exercise 3:\n")
+print("Order list facility 1:",multi_order_list_facility_one)
+print("Order list facility 2:",multi_order_list_facility_two)
+print("Order list facility 3:",multi_order_list_facility_three)
+print("Order list facility 4:",multi_order_list_facility_four,"\n")
+print("Outstanding orders:",multi_outstanding_order_list,"\n")
+print("Open capacities facility 1:",multi_capacity_one)
+print("Open capacities facility 2:",multi_capacity_two)
+print("Open capacities facility 3:",multi_capacity_three)
+print("Open capacities facility 4:",multi_capacity_four,"\n")
 
-
-
+print("Exercise 4:\n")
+print("Variant 1 without splitting the order quantity across several locations:")
+print("Transport costs:")
+print("Capacity utilisation of facility 1:", cap_util_facility_one, "%")
+print("Capacity utilisation of facility 2:", cap_util_facility_two, "%")
+print("Capacity utilisation of facility 3:", cap_util_facility_three, "%")
+print("Capacity utilisation of facility 4:", cap_util_facility_four, "%")
+print("Missing order quantities:", missing_order)
+print("\nVariant 2 with splitting of the order quantity to several locations:")
+print("Transport costs:")
+print("Capacity utilisation of facility 1:", cap_util_multi_facility_one, "%")
+print("Capacity utilisation of facility 2:", cap_util_multi_facility_two, "%")
+print("Capacity utilisation of facility 3:", cap_util_multi_facility_three, "%")
+print("Capacity utilisation of facility 4:", cap_util_multi_facility_four, "%")
+print("Missing order quantities:", missing_multi_order)
