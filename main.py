@@ -160,11 +160,11 @@ while True:
                     continue
 
 #pickle Datei befüllen
-with open("data/part2.txt", "wb") as f:
+with open("data/part2.pkl", "wb") as f:
     pickle.dump((order_list_facility_one, order_list_facility_two, order_list_facility_three, order_list_facility_four, outstanding_order_list), f)
 
 #pickledatei auslesen und in die Variable loaded Data schreiben
-with open("data/part2.txt", "rb") as f:
+with open("data/part2.pkl", "rb") as f:
     loaded_data = pickle.load(f)
 '''
 #Pickle Datei ausgeben
