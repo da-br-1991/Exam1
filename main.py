@@ -349,12 +349,6 @@ for customer, facility, distance in customer_distance_list:
         if facility == "Werk 4" and customer == customer_2:
             transport_cost_multi_facility_four += (distance * order * 2)
 
-print(customer_distance_list)
-print(transport_cost_single_facility_one)
-print(transport_cost_single_facility_two)
-print(transport_cost_single_facility_three)
-print(transport_cost_single_facility_four)
-
 transport_cost_multi = transport_cost_multi_facility_one + transport_cost_multi_facility_two + transport_cost_multi_facility_three + transport_cost_multi_facility_four
 
 #Terminal output:
