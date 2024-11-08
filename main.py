@@ -351,6 +351,53 @@ for customer, facility, distance in customer_distance_list:
 
 transport_cost_multi = transport_cost_multi_facility_one + transport_cost_multi_facility_two + transport_cost_multi_facility_three + transport_cost_multi_facility_four
 
+#Exercise 5:
+customer_distance_list_to_facility_one = []
+customer_distance_list_to_facility_two = []
+customer_distance_list_to_facility_three = []
+customer_distance_list_to_facility_four = []
+
+for customer, facility, distance in customer_distance_list:
+    for customer_2, order in pkl_facility_one_multi_order_list:
+        if facility == "Werk 1" and customer == customer_2:
+            customer_distance_list_to_facility_one.append([customer_2, float(distance)])
+customer_distance_list_to_facility_one.sort(key=lambda x: x[1])
+
+for customer, facility, distance in customer_distance_list:
+    for customer_2, order in pkl_facility_two_multi_order_list:
+        if facility == "Werk 2" and customer == customer_2:
+            customer_distance_list_to_facility_two.append([customer_2, float(distance)])
+customer_distance_list_to_facility_two.sort(key=lambda x: x[1])
+
+for customer, facility, distance in customer_distance_list:
+    for customer_2, order in pkl_facility_three_multi_order_list:
+        if facility == "Werk 3" and customer == customer_2:
+            customer_distance_list_to_facility_three.append([customer_2, float(distance)])
+customer_distance_list_to_facility_three.sort(key=lambda x: x[1])
+
+for customer, facility, distance in customer_distance_list:
+    for customer_2, order in pkl_facility_four_multi_order_list:
+        if facility == "Werk 4" and customer == customer_2:
+            customer_distance_list_to_facility_four.append([customer_2, float(distance)])
+customer_distance_list_to_facility_four.sort(key=lambda x: x[1])
+
+distance_list_customer_to_customer = []
+
+for i in range(len(coordinates_list)):
+    for j in range(len(coordinates_list)):
+        if i!=j:
+            x_difference = float(coordinates_list[i][1]) - float(coordinates_list[j][1])
+            y_difference = float(coordinates_list[i][2]) - float(coordinates_list[j][2])
+            distance_euclidean = (x_difference * x_difference + y_difference * y_difference) ** 0.5
+            distance_list_customer_to_customer.append((coordinates_list[i][0], coordinates_list[j][0], round(distance_euclidean, 2)))
+
+
+print(customer_distance_list_to_facility_one)
+print(customer_distance_list_to_facility_two)
+print(customer_distance_list_to_facility_three)
+print(customer_distance_list_to_facility_four)
+print(distance_list_customer_to_customer)
+'''
 #Terminal output:
 
 print("\nExercise 2:","\n")
@@ -390,3 +437,5 @@ print("Capacity utilisation of facility 2:", cap_util_multi_facility_two, "%")
 print("Capacity utilisation of facility 3:", cap_util_multi_facility_three, "%")
 print("Capacity utilisation of facility 4:", cap_util_multi_facility_four, "%")
 print("Missing order quantities:", missing_multi_order)
+
+'''
