@@ -393,10 +393,17 @@ for i in range(len(coordinates_list)):
 
 
 print(customer_distance_list_to_facility_one)
+print(pkl_facility_one_multi_order_list)
+print(distance_list_customer_to_customer)
+'''
 print(customer_distance_list_to_facility_two)
 print(customer_distance_list_to_facility_three)
 print(customer_distance_list_to_facility_four)
 print(distance_list_customer_to_customer)
+'''
+
+
+
 '''
 #Terminal output:
 
